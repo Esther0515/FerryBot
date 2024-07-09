@@ -1,1 +1,2 @@
 # FerryBot
+for group chat
