@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<title>Ferrybot Prototype</title>
+
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/robot.png')}}" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}" />
+</head>
+
+<body>
+  <div class="modal fade" id="enterModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Interaction hints</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><span>{{ hint_text }}</span></p>
+          <p class="card-text" style="color: #0a58ca;"><strong>Check out the sample messages, then try it
+              out!</strong></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="topBanner" class="fixed-top">
+    <div id="myBanner" class="d-flex justify-content-center">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0">
+          <img src="{{ url_for('static', filename='img/robot.png')}}" alt="ferrybot"
+            style="width:60px;height:60px;margin-top:20px;margin-bottom:20px;">
+        </div>
+        <h3 class="flex-grow-1 ms-3" style="margin-bottom:0;">
+          Ferrybot: A Conversational AI Agent for Wellbeing
+        </h3>
+      </div>
+    </div>
+    <nav class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                Chat Mode: <span>{{ mode_description }}</span>
+              </a>
+              <ul class="dropdown-menu" data-bs-theme="light">
+                <li><a class="dropdown-item" href="{{ url_for('check_status') }}">Check in with Inactive Users on Their
+                    Wellbeing</a></li>
+
+                <li><a class="dropdown-item" href="{{ url_for('ask_group_advice') }}">Match Newcomers with Suitable Peer
+                    Support Groups</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('schedule') }}">Coordinate Group Availability and
+                    Preferences for Upcoming Events</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="{{ url_for('support_train') }}">Train Peer Supporters on Active
+                    Member Engagement</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('simulate_train') }}">Train Peer Supporters on Empathic
+                    Care by Simulation Exercise</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('train_in_group') }}">Train Peer Supporters on Conflict
+                    Management in Group Chats</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-md-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('contact') }}">Contact us</a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div id="chatbody" class="row">
+    <div class="col">
+      <div id="profilecard" class="card">
+        <div class="card-body">
+          <h5 class="card-title">You are in a <strong>Group-chat</strong>...</h5>
+          <img src="{{ url_for('static', filename='img/group.png')}}" alt="group"
+            style="width:75px;height:75px;margin-top:5px;margin-bottom:10px;">
+          <p class="card-text"><span>{{ mode_profile }}</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div id="chatHistory">
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Carly.jpg')}}" alt="Carly" />
+          <div class="otherPart">
+            <p class="ouserName">Carly</p>
+            <p class="otherTextH">
+              Hey folks, I was really impressed with the midfield coordination in yesterday's match. What did you all
+              think?
+            </p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Dan.jpg')}}" alt="Dan" />
+          <div class="otherPart">
+            <p class="ouserName">Dan</p>
+            <p class="otherTextH">
+              Impressed? They were sloppy! Lost possession too many times. Not what you'd expect from a professional
+              team.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="botIcon" src="{{ url_for('static', filename='img/robot.png')}}" alt="ferrybot" />
+          <p class="botTextGH">
+            Let's keep the conversation respectful. Perhaps there were some contentious moments, but there's no need for
+            harsh words
+          </p>
+        </div>
+        <!-- <div class="d-flex justify-content-end">
+          <div class="otherPart">
+            <p class="userName d-flex justify-content-end">Joe</p>
+            <p class="userTextGH">
+              Yeah it's hard to say fair or not, but we can be open to discuss
+            </p>
+          </div>
+        </div> -->
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Bruce.jpg')}}" alt="Bruce" />
+          <div class="otherPart">
+            <p class="ouserName">Bruce</p>
+            <p class="otherTextH">
+              I think everyone has off days, even professionals. It's good to highlight areas for improvement, but let's
+              also acknowledge their hard work and moments of brilliance.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Carly.jpg')}}" alt="Carly" />
+          <div class="otherPart">
+            <p class="ouserName">Carly</p>
+            <p class="otherTextH">
+              That's a fair point, Dan. They did lose the ball a few times. But did you see that amazing pass in the
+              second half? It set up the only goal of the match beautifully.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Dan.jpg')}}" alt="Dan" />
+          <div class="otherPart">
+            <p class="ouserName">Dan</p>
+            <p class="otherTextH">
+              Yeah, the goal was alright, but one good pass doesn't make up for the rest of the game.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="botIcon" src="{{ url_for('static', filename='img/robot.png')}}" alt="ferrybot" />
+          <p class="botTextGH">
+            I understand your point, Dan. It's great we can discuss different views. Maybe there were some bad calls,
+            but both teams did play hard. Let's try to appreciate the efforts and skills displayed, even in tough games.
+          </p>
+        </div>
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Bruce.jpg')}}" alt="Bruce" />
+          <div class="otherPart">
+            <p class="ouserName">Bruce</p>
+            <p class="otherTextH">
+              True, one pass doesn't define a game, but it can definitely be a highlight. Celebrating those moments can
+              be fun too!</p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Carly.jpg')}}" alt="Carly" />
+          <div class="otherPart">
+            <p class="ouserName">Carly</p>
+            <p class="otherTextH">
+              Speaking of skills, how about the goalie's performance? Some of those saves were top-notch!</p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Dan.jpg')}}" alt="Dan" />
+          <div class="otherPart">
+            <p class="ouserName">Dan</p>
+            <p class="otherTextH">
+              I suppose the goalie did alright, saved them from a worse defeat for sure.</p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="botIcon" src="{{ url_for('static', filename='img/robot.png')}}" alt="ferrybot" />
+          <p class="botTextGH">
+            It's great to see we're finding common ground in appreciating player skills. It helps us all enjoy the sport more!
+          </p>
+        </div>
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Bruce.jpg')}}" alt="Bruce" />
+          <div class="otherPart">
+            <p class="ouserName">Bruce</p>
+            <p class="otherTextH">
+              That's the spirit! Discussing different aspects of the game can help us appreciate the skills and challenges faced by the players.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Carly.jpg')}}" alt="Carly" />
+          <div class="otherPart">
+            <p class="ouserName">Carly</p>
+            <p class="otherTextH">
+              True! Both teams played well despite some controversial calls. It was a tough match for sure.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="ouserIcon" src="{{ url_for('static', filename='img/Dan.jpg')}}" alt="Dan" />
+          <div class="otherPart">
+            <p class="ouserName">Dan</p>
+            <p class="otherTextH">
+              Hmm, I guess you're right. Focusing on the negative doesn't do justice to the players who really tried their best out there. Sorry for my earlier comments, I got a bit carried away.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <img class="botIcon" src="{{ url_for('static', filename='img/robot.png')}}" alt="ferrybot" />
+          <p class="botTextGH">
+            Great! Cheers for us!
+          </p>
+        </div>
+      </div>
+      <div id="divideLine">
+        <p class="text-center" style="color:#aaa; margin-bottom:0;">Above are sample messages</p>
+        <hr style="margin-top: 0;">
+        <p class="text-center" style="color:#656565;"><strong>Type at the bottom to start</strong></p>
+      </div>
+      <div id="chatbox"></div>
+      <div id="inputbox" class="d-flex align-items-center sticky-bottom">
+        <button class="btn btn-success" type="button" onclick="refreshPage()"
+          style="margin-bottom:1rem;margin-right:1rem;"><i class="bi bi-arrow-clockwise"></i></button>
+
+        <div id="userInput" class="input-group mb-3">
+          <textarea id="textInput" type="text" name="input_text" class="form-control" placeholder="Message Ferrybot"
+            rows="1"></textarea>
+          <button id="btn-send" class="btn btn-primary" type="button" onclick="getBotResponse()"><i
+              class="bi bi-send-fill"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div id="hintcard" class="card">
+        <div class="card-body">
+          <h5 class="card-title"><strong>Hints</strong></h5>
+          <p class="card-text"><span>{{ hint_text }}</span></p>
+          <p class="card-text" style="color: #0a58ca;"><strong>Scroll over the window to see sample messages,
+              then try it out!</strong></p>
+        </div>
+        <!-- <div class="card-body">
+          <h5 class="card-title">Next...</h5>
+          <p class="card-text"><span>{{ next_text }}</span></p>
+          <a href="{{ next_url }}" class="card-link" class="text-end">Try it »</a>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.min.js"></script>
+  <script>
+    $(window).on('load', function () {
+      $('#enterModal').modal('show');
+    });
+    $(document).ready(function () {
+      $('#textInput').on('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+      });
+    });
+    (function setGroupChat() {
+      $.get("/set_group_chat", {}).done(function (data) {
+        setTimeout(() => {
+          var userCHtml = "<div class='d-flex'><img class='ouserIcon' src='{{ url_for('static', filename='img/Carly.jpg')}}' alt='Carly' /><div class='otherPart'><p class='ouserName'>Carly</p><p class='otherText'>" + data[0] + "</p></div></div>";
+          $("#chatbox").append(userCHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+        }, 1000);
+        setTimeout(() => {
+          var userDHtml = "<div class='d-flex'><img class='ouserIcon' src='{{ url_for('static', filename='img/Dan.jpg')}}' alt='Dan' /><div class='otherPart'><p class='ouserName'>Dan</p><p class='otherText'>" + data[1] + "</p></div></div>";
+          $("#chatbox").append(userDHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+        }, 2000);
+      });
+    }());
+    function getBotResponse() {
+      document.getElementById('textInput').disabled = true;
+      var rawText = $("#textInput").val();
+      var userHtml = '<div class="d-flex justify-content-end"><div class="otherPart"><p class="userName d-flex justify-content-end">Joe</p><p class="userTextG"><span>' + rawText + "</span></p></div></div>";
+      $("#textInput").val("");
+      $("#chatbox").append(userHtml);
+      document
+        .getElementById("userInput")
+        .scrollIntoView({ block: "start", behavior: "smooth" });
+      $.get("/get_in_group_chat", { input_text: rawText }).done(function (data) {
+        if (data.length == 1) {
+          var botHtml = "<div class='d-flex'><img class='botIcon' src='{{ url_for('static', filename='img/robot.png')}}' alt='ferrybot' /><p class='botTextG'><span>" + data[0] + "</span></p></div>";
+          $("#chatbox").append(botHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+          document.getElementById('textInput').disabled = false;
+        } else {
+          var userBHtml = "<div class='d-flex'><img class='ouserIcon' src='{{ url_for('static', filename='img/Bruce.jpg')}}' alt='Bruce' /><div class='otherPart'><p class='ouserName'>Bruce</p><p class='otherText'>" + data[0] + "</p></div>";
+          $("#chatbox").append(userBHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+          setTimeout(() => {
+            var userCHtml = "<div class='d-flex'><img class='ouserIcon' src='{{ url_for('static', filename='img/Carly.jpg')}}' alt='Carly' /><div class='otherPart'><p class='ouserName'>Carly</p><p class='otherText'>" + data[1] + "</p></div></div>";
+            $("#chatbox").append(userCHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          }, 2000);
+          setTimeout(() => {
+            var userDHtml = "<div class='d-flex'><img class='ouserIcon' src='{{ url_for('static', filename='img/Dan.jpg')}}' alt='Bruce' /><div class='otherPart'><p class='ouserName'>Dan</p><p class='otherText'>" + data[2] + "</p></div>";
+            $("#chatbox").append(userDHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          }, 4000);
+        }
+        document.getElementById('textInput').disabled = false;
+        if (data.length > 3) {
+          setTimeout(() => {
+            var botHtml = "<div class='d-flex'><img class='botIcon' src='{{ url_for('static', filename='img/robot.png')}}' alt='ferrybot' /><p class='botTextG'><span>" + data[3] + "</span></p></div>";
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+            document.getElementById('textInput').disabled = false;
+          }, 4500);
+        }
+      });
+    }
+    $("#textInput").keypress(function (e) {
+      if (e.which == 13) {
+        e.preventDefault();
+        getBotResponse();
+      }
+    });
+    function refreshPage() {
+      location.reload();
+    }
+  </script>
+</body>
+
+</html>

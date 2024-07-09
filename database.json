@@ -1,0 +1,89 @@
+{
+    "events": [
+        {
+            "id": 0,
+            "groupID": "1",
+            "date": "2023-07-14",
+            "online": "False",
+            "content": "hiking",
+            "participants": {
+                "611": "affirm",
+                "649": "affirm",
+                "100": "refuse",
+                "716": "2023-07-15"
+            },
+            "status": "finish"
+        },
+        {
+            "id": 1,
+            "groupID": "1",
+            "date": "2023-08-11",
+            "online": "False",
+            "content": "session",
+            "participants": {
+                "611": "approve_change",
+                "649": "approve_change",
+                "100": "approve_change",
+                "716": "2023-08-11"
+            },
+            "potential_date": {
+                "2023-08-11": 3
+            },
+            "status": "unknown"
+        }
+    ],
+    "users": [
+        {
+            "id": "611",
+            "name": "Romy",
+            "surname": "Yu",
+            "birthdate": "1979-02-14",
+            "gender": "F",
+            "email": "romyfish@163.com",
+            "groupID": "1",
+            "chatID": "6110406512402871",
+            "condition": "headache"
+        },
+        {
+            "id": "649",
+            "name": "Wanshu",
+            "surname": "Yu",
+            "birthdate": "2000-02-28",
+            "gender": "F",
+            "email": "2817055y@163.com",
+            "groupID": "1",
+            "chatID": "6490110454383266",
+            "condition": "headache"
+        },
+        {
+            "id": "100",
+            "name": "Frank",
+            "surname": "Wang",
+            "birthdate": "1955-01-18",
+            "gender": "M",
+            "email": "10066509036700410@facebook.com",
+            "groupID": "1",
+            "chatID": "10066509036700410",
+            "condition": "None"
+        },
+        {
+            "id": "716",
+            "name": "Lisa",
+            "surname": "Liu",
+            "birthdate": "1973-08-13",
+            "gender": "F",
+            "email": "7168041819877235@facebook.com",
+            "groupID": "1",
+            "chatID": "7168041819877235",
+            "condition": "None"
+        }
+    ],
+    "manager": {
+        "id": "611",
+        "name": "Romy",
+        "surname": "Yu",
+        "gender": "F",
+        "email": "romyfish@163.com",
+        "chatID": "6110406512402871"
+    }
+}

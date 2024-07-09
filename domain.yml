@@ -1,0 +1,117 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - thanks
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - get_event_time
+  - state_problem
+  - state_unwilling
+  - state_available_time
+  - state_available_time_after
+  - state_available_time_range
+  - ask_result
+  - confrim_result
+  - reschedule_event
+  - cancel_event
+  - bot_challenge
+  - out_of_scope
+  - approve_notify
+  - EXTERNAL_notify
+  - EXTERNAL_inform
+  - EXTERNAL_time_change
+  - EXTERNAL_inform_reschedule
+  - EXTERNAL_inform_cancel
+
+entities:
+  - problem
+  - day
+
+slots:
+  problem:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: problem
+  day:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: day
+
+responses:
+  utter_greet:
+  - text: "Hi there! How are you today?"
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "I'm sorry to hear that. Maybe hanging out will help!"
+  - text: "I'm sorry to hear that. It happens. Maybe hanging out will help!"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_check_help:
+  - text: "Is there anything else I can help you with?"
+  - text: "What else can I help you with?"
+
+  utter_ask_prob:
+  - text: "Is there something specific that's been bothering you or that you'd like to talk about? I'm here to listen and offer support."
+
+  utter_ask_reason:
+  - text: "Would you like to tell me why? If it's the bad schedule we may make adjustments"
+  - text: "Do you mind telling me why? Or if it's the bad timing then when would you be available?"
+  
+  utter_happy_end:
+  - text: "Okay! Have a nice day!"
+  - text: "Okay, hope you enjoy the rest of the day!"
+
+  utter_goodbye:
+  - text: "Bye bye"
+  - text: "Goodbye there"
+  - text: "See you"
+
+  utter_re_thanks:
+  - text: "No worries~"
+  - text: "Cheers!"
+
+  utter_smile:
+  - text: ":)"
+
+  utter_iamabot:
+  - text: "I am a bot. I am here to help."
+
+  utter_out_of_scope:
+  - text: "Sorry, I can't handle that request."
+
+  utter_ask_rephrase:
+  - text: "Sorry, I didn't quite understand that. Could you please rephrase?"
+
+  # utter_default:
+  # - text: "Sorry, I can't help you. Do you need human service?"
+
+actions:
+- action_set_notify
+- action_notify_triggered
+- action_get_affirm
+- action_record_unwilling
+- action_record_time
+- action_record_time_after
+- action_record_prob
+- action_event_time
+- action_time_change_checking
+- action_get_change_agree
+- action_get_change_deny
+- action_inform_result
+- action_reschedule_event
+- action_cancel_event
+- action_inform_reschedule
+- action_inform_cancel
+
+session_config:
+  session_expiration_time: 3   # value in minutes
+  carry_over_slots_to_new_session: true
