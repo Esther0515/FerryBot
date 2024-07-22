@@ -50,39 +50,49 @@
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
-                Chat Mode: <span>{{ mode_description }}</span>
-              </a>
-              <ul class="dropdown-menu" data-bs-theme="light">
-                <li><a class="dropdown-item" href="{{ url_for('check_status') }}">Check in with Inactive Users on Their
-                    Wellbeing</a></li>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            Chat Mode: <span>{{ mode_description }}</span>
+                        </a>
+                        <ul class="dropdown-menu" data-bs-theme="light">
+                            <li><a class="dropdown-item" href="{{ url_for('check_status') }}">Check in with Inactive
+                                Users on Their
+                                Wellbeing</a></li>
 
-                <li><a class="dropdown-item" href="{{ url_for('ask_group_advice') }}">Match Newcomers with Suitable Peer
-                    Support Groups</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('schedule') }}">Coordinate Group Availability and
-                    Preferences for Upcoming Events</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="{{ url_for('support_train') }}">Train Peer Supporters on Active
-                    Member Engagement</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('simulate_train') }}">Train Peer Supporters on Empathic
-                    Care by Simulation Exercise</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('train_in_group') }}">Train Peer Supporters on Conflict
-                    Management in Group Chats</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="navbar-nav ml-md-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="{{ url_for('contact') }}">Contact us</a>
-            </li>
+                            <li><a class="dropdown-item" href="{{ url_for('ask_group_advice') }}">Match Newcomers with
+                                Suitable Peer
+                                Support Groups</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('schedule') }}">Coordinate Group Availability
+                                and
+                                Preferences for Upcoming Events</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ url_for('support_train') }}">Train Peer Supporters on
+                                Active
+                                Member Engagement</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('simulate_train') }}">Train Peer Supporters on
+                                Empathic
+                                Care by Simulation Exercise</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('train_in_group') }}">Train Peer Supporters on
+                                Conflict
+                                Management in Group Chats</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="{{ url_for('remind_group') }}">Remind In group</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('bot_helper') }}">Bot Helper</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-md-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('contact') }}">Contact us</a>
+                    </li>
 
-          </ul>
-        </div>
+                </ul>
+            </div>
+
       </div>
     </nav>
   </div>

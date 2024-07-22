@@ -1,0 +1,240 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - hello, my name is [Ester](name)
+    - hi, I am [Ester](name)
+    - hello there, my name is [Ester](name)
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - yeah
+    - ok
+    - okay
+    - that's right
+    - exactly
+    - I agree
+    - why not
+    - affirmative
+    - sounds good
+    - yep
+    - okay then
+    - I suppose so
+    - alright
+    - I believe so
+    - all right
+    - that is correct
+    - I accept
+
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - absolutely not
+    - definitely not
+    - sry no
+    - no thanks
+    - no thx
+    - no thanks
+    - nope
+    - not at all
+    - I disagree
+    - I don't agree
+    - out of the question
+    - certainly not
+    - by no means
+    - under no circumstances
+    - not interested
+    - that's not right
+    - I refuse
+    - I can't
+    - I won't
+    - I don't like it
+    - I wouldn't
+
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+    - not bad
+    - fantastic
+    - couldn't be better
+    - feeling awesome
+    - life is good
+    - over the moon
+    - I am very happy
+    - thrilled
+    - I am on cloud nine
+    - everything is going well
+    - I am in a great mood
+    - I feel wonderful
+    - I feel fantastic
+    - absolutely great
+    - I am so happy
+    - fine
+
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+    - I feel terrible
+    - I am feeling down
+    - I am feeling low
+    - I am not happy
+    - I am upset
+    - feeling blue
+    - feeling miserable
+    - I am depressed
+    - I am heartbroken
+    - I am gloomy
+    - I am sorrowful
+    - I feel awful
+    - I am in a bad mood
+    - I am down in the dumps
+    - I feel like crying
+    - I am in low spirits
+    - things are not going well
+    - I am not feeling great
+    - bad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+
+- intent: thanks
+  examples: |
+    - thanks
+    - thank you
+    - thank u
+    - thx
+    - thanks a lot
+    - many thanks
+    - much obliged
+    - I'm grateful
+    - I am thankful
+    - I am so grateful
+    - thanks a ton
+    - thanks a bunch
+    - you are really nice
+    - u r so sweet
+    - Thank you so much
+    - thanks so much
+    - thank you very much
+    - I appreciate it.
+    - I really appreciate it
+    - thanks for everything
+    - thanks for your help
+    - thanks for your assistance
+    - thank you for your support
+    - cheers
+
+
+- intent: state_problem
+  examples: |
+    - I've been having trouble [sleeping](problem) lately
+    - I cannot fall [asleep](problem)
+    - I have trouble [sleeping](problem)
+    - I find it hard to stay [asleep](problem) throughout the night
+    - It's hard for me to [sleep](problem) at night
+    - I have some [insomnia](problem) recently
+    - I couldn't fall [asleep](problem) last night
+    - I can't [sleep](problem) lately
+    - I lie in bed for hours but can't [sleep](problem)
+    - I always feel a [headache](problem) these days
+    - The [headache](problem) makes me feel nauseous
+    - The [headache](problem) is affecting my daily activities
+    - I woke up with a slight [headache](problem)
+    - I can't get rid of my [headache](problem)
+    - I've got a [headache](problem)
+    - I had a [headache](problem)
+    - I feel a [headache](problem)
+    - I often feel like I can't [breathe](problem)
+    - I struggle to [breathe](problem)
+    - My chest feels tight and I can't [breathe](problem)
+    - I have trouble [breathing](problem) sometimes
+    - I sometimes find it hard to [breathe](problem)
+    - I couldn't [breathe](problem)
+    - I can't [breathe](problem)
+    - I could hardly [breathe](problem)
+    - My [breath](problem) came in short pants
+    - I'm out of [breath](problem)
+    - I was out of [breath](problem)
+    - I feel short of [breath](problem)
+    - I always feel [frustrated](problem)
+    - I feel out of [energy](problem) these days
+    - I am experiencing [anxiety](problem)
+    - I am feeling [depressed](problem)
+    - I have been feeling very [isolated](problem) recently
+    - I am struggling with [social anxiety](problem)
+    - I am having [panic attacks](problem)
+    - I experienced a [panic attack](problem) last night
+

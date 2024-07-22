@@ -1,4 +1,6 @@
-from flask import Flask, request, render_template, session
+from functools import wraps
+
+from flask import Flask, request, render_template, session, redirect, url_for
 
 # from langchain_community.llms.ollama import Ollama
 
@@ -13,13 +15,14 @@ api_key = os.getenv('OPENAI_API_KEY')
 import re
 import csv
 from datetime import datetime
+from flask_socketio import SocketIO, emit, join_room, leave_room
 
 mode_num = 1
 mode_count = 6
 chat_prompts = []
 for i in range(mode_count):
     sp_name = "texts/system_prompt_" + str(i+1) + ".txt"
-    with open(sp_name, "r") as p_file:
+    with open(sp_name, "r", encoding="u8") as p_file:
         sys_prompt = p_file.read()
     chat_prompts.append([SystemMessage(content = sys_prompt)])
 # chat_prompt = [SystemMessage(content = sys_prompts[mode_num-1])]
@@ -57,51 +60,127 @@ start_bot_texts.append("Hello! Today, we're going to practice a very important s
 
 app = Flask(__name__)
 app.secret_key = 'a_secret_key'
+socketio = SocketIO(app)
+# user data
+users = {
+    'admin': 'admin123',
+    'test_user1': 'test123',
+    'user1': 'user123',
+    'user2': 'user123',
+    'user3': 'user123',
+    'user4': 'user123',
+    'user5': 'user123'
+}
+
+# login code
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in session:
+            # if no data in session, jump to login page
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        # check the user info
+        username = request.form['username']
+        password = request.form['password']
+        if username in users and users[username] == password:
+            session['username'] = username
+            return redirect(url_for('home'))
+        else:
+            return render_template('login.html', error='Invalid username or password')
+    return render_template('login.html')
+
+@app.route("/remind_group")
+@login_required
+def remind_group():
+    return render_template("remind_group.html", mode_profile='Say whay you what to say', start_bot_text=0, mode_num=6, mode_description='group chat for remind', hint_text='This function only detects the activity of online users.', next_text='Bot helper', next_url='bot_helper')
+
+@app.route("/bot_helper")
+@login_required
+def bot_helper():
+    return render_template("bot_helper.html", mode_profile='Say whay you what to say', start_bot_text=0, mode_num=6, mode_description='private chat with bot', hint_text='This page is a private interface that will log your difficulties and ask for professional help.', next_text='Group chat', next_url='remind_group')
+
+@socketio.on('join')
+def on_join(data):
+    username = session.get('username')
+    room = data['room']
+    join_room(room)
+    emit('status', {'message': username + ' has entered the room.'}, room=room)
+
+@socketio.on('leave')
+def on_leave(data):
+    username = session.get('username')
+    room = data['room']
+    leave_room(room)
+    emit('status', {'message': username + ' has left the room.'}, room=room)
+
+@socketio.on('message')
+def handle_message(data):
+    username = session.get('username')
+    room = data['room']
+    message = data['message']
+    emit('message', {'username': username,  'message': message}, room=room)
+
+
 
 @app.route('/')
+@login_required
 def home():
     return render_template("index.html")
 
 @app.route('/check_status')
+@login_required
 def check_status():
     session['modeNum'] = 1
     return render_template("private.html", mode_profile=mode_profiles[mode_num-1], start_bot_text=start_bot_texts[mode_num-1], mode_num=str(mode_num), mode_description=mode_descriptions[mode_num-1], hint_text=mode_hints[mode_num-1], next_text=mode_descriptions[mode_num], next_url='ask_group_advice')
 
 @app.route('/ask_group_advice')
+@login_required
 def ask_group_advice():
     session['modeNum'] = 2
     mode_num = session.get('modeNum', 1)
     return render_template("private.html", mode_profile=mode_profiles[mode_num-1], start_bot_text=start_bot_texts[mode_num-1], mode_num=str(mode_num), mode_description=mode_descriptions[mode_num-1], hint_text=mode_hints[mode_num-1], next_text=mode_descriptions[mode_num], next_url='schedule')
 
 @app.route('/schedule')
+@login_required
 def schedule():
     session['modeNum'] = 3
     mode_num = session.get('modeNum', 1)
     return render_template("group.html", mode_profile=mode_profiles[mode_num-1], mode_num=str(mode_num), mode_description=mode_descriptions[mode_num-1], hint_text=mode_hints[mode_num-1], next_text=mode_descriptions[mode_num], next_url='support_train')
 
 @app.route('/support_train')
+@login_required
 def support_train():
     session['modeNum'] = 4
     mode_num = session.get('modeNum', 1)
     return render_template("private.html", mode_profile=mode_profiles[mode_num-1], start_bot_text=start_bot_texts[mode_num-1], mode_num=str(mode_num), mode_description=mode_descriptions[mode_num-1], hint_text=mode_hints[mode_num-1], next_text=mode_descriptions[mode_num], next_url='simulate_train')
 
 @app.route('/simulate_train')
+@login_required
 def simulate_train():
     session['modeNum'] = 5
     mode_num = session.get('modeNum', 1)
     return render_template("private_simul.html", mode_profile=mode_profiles[mode_num-1], start_bot_text=start_bot_texts[mode_num-1], mode_num=str(mode_num), mode_description=mode_descriptions[mode_num-1], hint_text=mode_hints[mode_num-1], next_text=mode_descriptions[mode_num], next_url='train_in_group')
 
 @app.route('/train_in_group')
+@login_required
 def train_in_group():
     session['modeNum'] = 6
     mode_num = session.get('modeNum', 1)
     return render_template("group_chat.html", mode_profile=mode_profiles[mode_num-1], mode_num=str(mode_num), mode_description=mode_descriptions[mode_num-1], hint_text=mode_hints[mode_num-1])
 
 @app.route('/contact')
+@login_required
 def contact():
     return render_template("contact.html")
 
 @app.route('/get_chat_history')
+@login_required
 def get_chat_history():
     mode_num = session.get('modeNum', 1)
     ch_name = "texts/chat_history_" + str(mode_num) + ".txt"
@@ -117,6 +196,7 @@ def get_chat_history():
     return chat_history
 
 @app.route('/initial_group_chat')
+@login_required
 def initial_group_chat():
     mode_num = session.get('modeNum', 1)
     sp_name = "texts/system_prompt_3.txt"   # reset the prompt
@@ -137,6 +217,7 @@ def initial_group_chat():
     return responses
 
 @app.route('/set_group_chat')
+@login_required
 def set_group_chat():
     mode_num = session.get('modeNum', 1)
     sp_name = "texts/system_prompt_6.txt"   # reset the prompt
@@ -160,6 +241,7 @@ def set_group_chat():
     return responses
 
 @app.route('/get')
+@login_required
 def get_bot_response():
     user_input = request.args.get("input_text")
     mode_num = session.get('modeNum', 1)
@@ -179,6 +261,7 @@ def get_bot_response():
     # return user_input
 
 @app.route('/get_in_group')
+@login_required
 def get_bot_response_in_group():
     user_input = request.args.get("input_text")
     # cur_user_input = "UserA: " + user_input
@@ -203,6 +286,7 @@ def get_bot_response_in_group():
     return responses
 
 @app.route('/get_in_group_chat')
+@login_required
 def get_bot_response_in_group_chat():
     user_input = request.args.get("input_text")
     # cur_user_input = "UserA: " + user_input
@@ -229,6 +313,7 @@ def get_bot_response_in_group_chat():
     # return raw_text
 
 @app.route('/submit', methods=['GET', 'POST'])
+@login_required
 def submit():
     if request.method == 'POST':
         title = request.form.get('titleInput')
@@ -249,4 +334,4 @@ def submit():
     return render_template('contact.html', success_flag=1)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

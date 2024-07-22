@@ -1,0 +1,50 @@
+version: "3.1"
+
+stories:
+
+- story: happy
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - checkpoint: check_help
+  
+
+- story: sad
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - checkpoint: check_help
+  # - action: utter_ask_reason
+  # - intent: state_problem
+  # - action: utter_reason_slove
+  # - action: utter_did_that_help
+  # - intent: deny
+  # - action: utter_happy
+
+#- story: user state problem
+#  steps:
+#  - intent: state_problem
+#  - action: utter_reason_slove
+#  - checkpoint: check_help
+
+- story: need help
+  steps:
+  - checkpoint: check_help
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_ask_reason
+  - intent: state_problem
+  - action: utter_reason_slove
+  - action: action_save_user_issue
+  - checkpoint: check_help
+
+- story: not need help
+  steps:
+  - checkpoint: check_help
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_happy

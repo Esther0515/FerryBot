@@ -1,0 +1,89 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - state_problem
+  - thanks
+
+entities:
+  - name
+  - problem
+
+
+slots:
+  name:
+    type: any
+    mappings:
+      - type: from_entity
+        entity: name
+  problem:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: problem
+
+actions:
+  - action_save_user_issue
+
+responses:
+  utter_greet:
+  - text: "Hey {name}! How are you?"
+  - text: "Hello {name}"
+  - text: "Hi {name}. How can I help you?~"
+  - text: "Hello! How's it going?"
+  - text: "Greetings! How do you feel today?"
+  - text: "Hello! How's everything?"
+  - text: "Hi! How are you doing?"
+
+  utter_cheer_up:
+  - text: "I understand that it's tough right now.  Let's talk about it and see if we can find a way to make things a bit better."
+  - text: "I'm sorry to hear that. Let's see if discussing it can help."
+
+  utter_did_that_help:
+  - text: "Is there anything more I can do for you?"
+  - text: "Any other issue I can assist you with?"
+  - text: "Is there anything else I can help you with?"
+  - text: "What else can I help you with?"
+
+  utter_happy:
+  - text: "Alright, have a nice day!"
+  - text: "Alright! Have a wonderful day!"
+  - text: "Okay, hope you enjoy the rest of the day!"
+  - text: "Alright, take care and enjoy your day!"
+
+  utter_ask_reason:
+  - text: "Would you like to tell me why"
+  - text: "Do you mind telling me why?"
+  - text: "Can you tell me the reason?"
+  - text: "Would you care to share the reason?" 
+
+  utter_reason_slove:
+  - text: "Okay, I will keep in mind and look for some help for you. Hope you get better soon!"
+  - text: "I'm sorry to hear that. Maybe hanging out will help!"
+
+  utter_goodbye:
+  - text: "Bye"
+  - text: "Bye bye"
+  - text: "Goodbye and take care"
+  - text: "See you"
+
+  utter_re_thanks:
+  - text: "No worries~"
+  - text: "My pleasure!"
+  - text: "You're welcome!"
+  - text: "Cheers!"
+  - text: "Glad to help!"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
