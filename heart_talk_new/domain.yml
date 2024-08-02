@@ -10,11 +10,21 @@ intents:
   - bot_challenge
   - state_problem
   - thanks
+  - why_not_join
+  - confirm_time
+  - confuse_join
+  - trigger_ask_time
+  - no_interesting
+  - dont_like_this_event
+  - dont_like_online
+  - reason_dont_want
+  - trigger_ask_reason
+  - reason_time
 
 entities:
   - name
   - problem
-
+  - confirm_time
 
 slots:
   name:
@@ -27,15 +37,21 @@ slots:
     mappings:
       - type: from_entity
         entity: problem
+  confirm_time:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: confirm_time
 
 actions:
   - action_save_user_issue
+  - action_parse_time
 
 responses:
   utter_greet:
   - text: "Hey {name}! How are you?"
   - text: "Hello {name}"
-  - text: "Hi {name}. How can I help you?~"
+  - text: "Hi {name}."
   - text: "Hello! How's it going?"
   - text: "Greetings! How do you feel today?"
   - text: "Hello! How's everything?"
@@ -83,6 +99,49 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
+  utter_wait_for_next_event:
+    - text: "Those who can't attend this event can look forward to next week's event. We have many exciting activities waiting for you~"
+    - text: "If you miss this one, don't worry! We have another exciting event lined up next week with plenty of fun activities."
+  
+  utter_jump_to_private:
+    - custom:
+        payload:
+          intent: trigger_ask_reason
+  
+  utter_ask_time_again:
+    - text: "What time is available for others?"
+    - text: "Can everyone else share their available times?"
+    - text: "What times work best for the rest of you?"
+    - text: "Could others please let us know their availability?"
+
+  
+  utter_cancel_event:
+    - text: "Not enough, we cancel the event."
+    - text: "Due to low attendance, we've decided to cancel the event."
+    - text: "We don't have enough participants, so we'll need to cancel the event, unfortunately."
+  
+  utter_ask_why_not_join:
+    - text: "Hi, I noticed you're not attending the event. Could you tell me why? Because time or just don't want join?"
+    - text: "I see you haven't signed up for the event. Is it the timing or something else that's holding you back?"
+    - text: "Hello!  I realized you're missing the event. May I ask if it's due to scheduling conflicts or another reason?"
+  
+  utter_sorry_hear:
+    - text: "Sorry hear this, you can join us at next week."
+    - text: "I'm sorry to hear that.  Hopefully, you can make it to our next event!"
+  
+  utter_ask_reason_why_not_join:
+    - text: "Sorry to bother you. Could you tell me why you dont want to join? I'll be a good listener."
+    - text: "May I ask why you've decided not to join the event?"
+ 
+  utter_wait_for_online_event:
+    - text: "Sorry for bother you. You can wait for other online event"
+    - text: "No worries!  There will be more online events coming up that you might find more appealing."
+    - text: "If this isn't for you, perhaps an upcoming online event will be more to your liking!"
+ 
+  utter_no_interesting_recently:
+    - text: "Sorry for hear this. Maybe hanging out will help."
+    - text: "I'm sorry to hear you're feeling uninterested lately. Sometimes, a change of scenery or new activities can help!"
+    - text: "That sounds tough. It might be refreshing to try something different, like joining us for a casual meet-up."
 
 session_config:
   session_expiration_time: 60

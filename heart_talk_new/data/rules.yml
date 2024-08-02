@@ -16,3 +16,10 @@ rules:
   steps:
   - intent: thanks
   - action: utter_re_thanks
+
+#- rule:
+#  steps:
+#  - intent: state_problem
+#  - action: utter_reason_slove
+#  - action: action_save_user_issue
+#  - action: action_listen

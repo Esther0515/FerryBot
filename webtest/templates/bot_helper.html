@@ -101,6 +101,8 @@
                             <hr class="dropdown-divider">
                             <li><a class="dropdown-item" href="{{ url_for('remind_group') }}">Remind In group</a></li>
                             <li><a class="dropdown-item" href="{{ url_for('bot_helper') }}">Bot Helper</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('scheule_group') }}">Scheule Group</a></li>
+
                         </ul>
                     </li>
                 </ul>
@@ -174,26 +176,36 @@
         {#$('#enterModal').modal('show');#}
         {#$('#remindModal').modal('show');#}
     });
+    const username = '{{ session.username }}';
     $(document).ready(function () {
         $('#textInput').on('input', function () {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
         });
         // check the user activity
-        sendRequestToRasa("/greet")
+        const queryString = window.location.search
+        const urlParams = new URLSearchParams(queryString)
+        const intent = urlParams.get("intent")
+        let query = '/greet'
+        let entity = '';
+        if (intent !== null) {
+            query = '/' + intent
+        } else {
+            entity = `{"name": "${username}"}`
+        }
+        sendRequestToRasa({message: `${query}${entity}`})
 
     });
-    const username = '{{ session.username }}';
 
     function sendRequestToRasa(message) {
         let responseArray = [];
-
+        const json = JSON.stringify(message)
         fetch("http://localhost:5005/webhooks/rest/webhook", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({message: message}),
+            body: json,
         })
             .then((response) => response.json())
             .then(async (data) => {
@@ -217,7 +229,7 @@
         document
             .getElementById("userInput")
             .scrollIntoView({block: "start", behavior: "smooth"});
-        sendRequestToRasa(rawText);
+        sendRequestToRasa({message: rawText});
 
         document.getElementById('textInput').disabled = false;
     }

@@ -238,3 +238,163 @@ nlu:
     - I am having [panic attacks](problem)
     - I experienced a [panic attack](problem) last night
 
+- intent: confirm_time
+  examples: |
+    - I can join at [Wednesday](confirm_time)
+    - [Monday](confirm_time) also ok.
+    - Can do at [Thursday](confirm_time)
+    - Can join at [Friday](confirm_time)
+    - [Tuesday](confirm_time)
+    - I can join at [Wednesday](confirm_time)
+    - [Monday](confirm_time) also ok.
+    - Can do at [Thursday](confirm_time)
+    - Yes, [Saturday](confirm_time) works for me
+    - [Sunday](confirm_time) is perfect
+    - I'm free this [Monday](confirm_time)
+    - [Wednesday](confirm_time) is good for me
+    - That's fine for [Tuesday](confirm_time)
+    - [Friday](confirm_time)?  That's good
+    - [Thursday](confirm_time) suits me
+    - [Monday](confirm_time) is fine
+    - I am available on [Wednesday](confirm_time)
+    - Confirming [Thursday](confirm_time) for me
+    - I'll be there [Friday](confirm_time)
+    - [Tuesday](confirm_time) is okay
+    - [Sunday](confirm_time), I'm in
+    - See you on [Saturday](confirm_time)
+    - [Monday](confirm_time) it is then
+
+- intent: confuse_join
+  examples: |
+    - I don't join.
+    - I don't have time.
+    - Not go
+    - Do not go
+    - I don't go
+    - I don't join.
+    - Count me out
+    - I'll pass this time
+    - I won't be attending
+    - Sorry, can't make it
+    - I'm not participating
+    - I'll skip this one
+    - Not for me, thanks
+    - I won't be coming
+    - I'm out for this event
+    - Not joining this time
+    - I'm not up for it
+    - Declining this time
+    - I'm unavailable
+
+
+- intent: trigger_ask_time
+  examples: |
+    - trigger ask time gogogo!
+    - trigger ask time gogogo 123!
+    - trigger ask time gogogo 321!
+
+- intent: trigger_ask_reason
+  examples: |
+    - trigger_the_ask_why_not_join
+    - trigger_the_ask_why_not_join_!
+    - trigger_the_ask_why_not_join_2
+
+- intent: reason_time
+  examples: |
+    - The time is not match
+    - I don't have time
+    - The time is tight
+    - I'm busy this week
+    - The time is not match
+    - That time doesn't work for me
+    - I'm not available then
+    - The schedule is conflicting
+    - I have prior commitments
+    - That's not a good time for me
+    - I am booked all day
+    - No free slots that day
+    - My calendar is full then
+    - I'm tied up during that time
+    - Unfortunately, that time is bad for me
+    - I have another meeting at that time
+    - I won't be free then
+    - That timing isn't good for me
+    - I have other plans then
+    - I'm swamped that day
+
+- intent: reason_dont_want
+  examples: |
+    - I don't want to join
+    - No interest at the event
+    - I don't like this event
+    - I don't want to join
+    - I'm not keen on attending
+    - I prefer not to join
+    - Not feeling up for it
+    - I have no enthusiasm for this event
+    - I'm not into that kind of event
+    - I would rather stay home
+
+- intent: dont_like_online
+  examples: |
+    - I don't like offline event
+    - I don't like to meet anyone
+    - I don't like offline
+    - Offline events aren't for me
+    - I prefer not to attend in person
+    - I avoid face-to-face meetings
+    - Not a fan of in-person gatherings
+    - I'm not comfortable with offline events
+    - I prefer online over offline events
+    - In-person events are not my thing
+    - I shun physical gatherings
+    - I find offline meetings inconvenient
+    - I hate traveling to events
+    - I prefer to avoid in-person activities
+    - Offline setups are not appealing to me
+    - I dislike the hassle of offline events
+    - I avoid offline activities whenever possible
+
+- intent: dont_like_this_event
+  examples: | 
+    - I dont like this event
+    - This event is boring
+    - I have no interesting with this event
+    - I dont like this event
+    - This doesn't seem fun to me
+    - Not my type of event
+    - I find this event unappealing
+    - This event doesn't excite me
+    - I'm not interested in this kind of event
+    - This is not what I enjoy
+    - The event seems dull
+    - It doesn't catch my interest
+    - This isn't my style of event
+    - I don't find this event engaging
+    - I'm not drawn to this event
+    - This just isn't for me
+    - I have zero enthusiasm for this event
+    - This event is not appealing
+    - I don't see anything appealing in this event
+    - I'm not a fan of what this event offers
+    - It doesn't look like something I'd enjoy
+
+- intent: no_interesting
+  examples: |
+    - I dont want to say
+    - It's a secret 
+    - Im tired. Dont ask any more.
+    - Not interested in anything lately
+    - I've lost interest in things
+    - Nothing catches my attention these days
+    - Everything seems dull to me now
+    - I feel indifferent about everything
+    - No hobbies interest me at the moment
+    - My enthusiasm has been low recently
+    - I'm not feeling passionate about anything
+    - I haven't been interested in much lately
+    - Nothing really interests me anymore
+    - I lack motivation for usual interests
+    - There’s nothing that really excites me currently
+    - My interest in things has waned
+    - It's hard to get interested in anything right now

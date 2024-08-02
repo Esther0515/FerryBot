@@ -35,8 +35,6 @@ stories:
   steps:
   - checkpoint: check_help
   - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_ask_reason
   - intent: state_problem
   - action: utter_reason_slove
   - action: action_save_user_issue
@@ -48,3 +46,62 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_happy
+
+- story: need help2
+  steps:
+  - intent: state_problem
+  - action: utter_reason_slove
+  - action: action_save_user_issue
+  - checkpoint: check_help
+
+
+- story: scheul group success
+  steps:
+    - intent: trigger_ask_time
+    - action: utter_ask_time_again
+    - intent: confirm_time
+    - action: action_parse_time
+    - action: utter_wait_for_next_event
+
+- story: scheul group fail
+  steps:
+    - intent: trigger_ask_time
+    - action: utter_ask_time_again
+    - intent: confuse_join
+    - action: utter_jump_to_private
+
+
+- story: ask why not join - reason_time
+  steps:
+    - intent: trigger_ask_reason
+    - action: utter_ask_why_not_join
+    - intent: reason_time
+    - action: utter_sorry_hear
+
+- story: ask why not join - reason_dont_want
+  steps:
+    - intent: trigger_ask_reason
+    - action: utter_ask_why_not_join
+    - intent: reason_dont_want
+    - action: utter_ask_reason_why_not_join
+    - checkpoint: get_reason
+
+- story: utter_wait_for_online_event
+  steps:
+    - checkpoint: get_reason
+    - intent: dont_like_online
+    - action: utter_wait_for_online_event
+
+- story: utter_sorry_hear
+  steps:
+    - checkpoint: get_reason
+    - intent: dont_like_this_event
+    - action: utter_sorry_hear
+
+- story: utter_no_interesting_recently
+  steps:
+    - checkpoint: get_reason
+    - intent: no_interesting
+    - action: utter_no_interesting_recently
+
+

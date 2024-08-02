@@ -126,6 +126,12 @@ def handle_message(data):
     message = data['message']
     emit('message', {'username': username,  'message': message}, room=room)
 
+@app.route('/scheule_group')
+@login_required
+def scheule_group():
+    session['modeNum'] = 3
+    mode_num = session.get('modeNum', 1)
+    return render_template("scheule_group.html", mode_profile=mode_profiles[mode_num-1], mode_num=str(mode_num), mode_description=mode_descriptions[mode_num-1], hint_text=mode_hints[mode_num-1], next_text=mode_descriptions[mode_num], next_url='support_train')
 
 
 @app.route('/')
