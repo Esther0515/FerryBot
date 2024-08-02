@@ -271,7 +271,6 @@ nlu:
     - Not go
     - Do not go
     - I don't go
-    - I don't join.
     - Count me out
     - I'll pass this time
     - I won't be attending
@@ -327,7 +326,6 @@ nlu:
     - I don't want to join
     - No interest at the event
     - I don't like this event
-    - I don't want to join
     - I'm not keen on attending
     - I prefer not to join
     - Not feeling up for it
@@ -395,6 +393,6 @@ nlu:
     - I haven't been interested in much lately
     - Nothing really interests me anymore
     - I lack motivation for usual interests
-    - There’s nothing that really excites me currently
+    - There's nothing that really excites me currently
     - My interest in things has waned
     - It's hard to get interested in anything right now
