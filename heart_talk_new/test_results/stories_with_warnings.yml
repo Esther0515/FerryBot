@@ -1,0 +1,8 @@
+version: "3.1"
+stories:
+- story: Test user doesn’t like event and prefers online (/Users/esther_ye/Desktop/GroupChat/heart_talk_new/tests/test_stories.yml)
+  steps:
+  - intent: trigger_ask_reason
+  - action: utter_ask_why_not_join
+  - intent: dont_like_online
+  - action: utter_wait_for_online_event  # predicted: action_unlikely_intent

@@ -1,0 +1,10 @@
+[
+  {
+    "text": "I don't have time.",
+    "intent": "confuse_join",
+    "intent_prediction": {
+      "name": "reason_time",
+      "confidence": 0.572119414806366
+    }
+  }
+]

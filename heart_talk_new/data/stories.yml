@@ -92,15 +92,35 @@ stories:
     - intent: dont_like_online
     - action: utter_wait_for_online_event
 
+- story: utter_wait_for_online_event_2
+  steps:
+    - intent: dont_like_online
+    - action: utter_wait_for_online_event
+
 - story: utter_sorry_hear
   steps:
     - checkpoint: get_reason
     - intent: dont_like_this_event
     - action: utter_sorry_hear
 
+- story: utter_sorry_hear_2
+  steps:
+    - intent: dont_like_this_event
+    - action: utter_sorry_hear
+
+- story: utter_sorry_hear2
+  steps:
+    - intent: dont_like_this_event
+    - action: utter_sorry_hear
+
 - story: utter_no_interesting_recently
   steps:
     - checkpoint: get_reason
+    - intent: no_interesting
+    - action: utter_no_interesting_recently
+
+- story: utter_no_interesting_recently2
+  steps:
     - intent: no_interesting
     - action: utter_no_interesting_recently
 

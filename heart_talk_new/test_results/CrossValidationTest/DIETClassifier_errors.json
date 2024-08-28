@@ -1,0 +1,103 @@
+[
+  {
+    "text": "I always feel frustrated",
+    "entities": [
+      {
+        "start": 14,
+        "end": 24,
+        "value": "frustrated",
+        "entity": "problem"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "I am feeling depressed",
+    "entities": [
+      {
+        "start": 13,
+        "end": 22,
+        "value": "depressed",
+        "entity": "problem"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "I have been feeling very isolated recently",
+    "entities": [
+      {
+        "start": 25,
+        "end": 33,
+        "value": "isolated",
+        "entity": "problem"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "I am depressed",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "problem",
+        "start": 5,
+        "end": 14,
+        "confidence_entity": 0.9994376301765442,
+        "value": "depressed",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "I feel out of energy these days",
+    "entities": [
+      {
+        "start": 14,
+        "end": 20,
+        "value": "energy",
+        "entity": "problem"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "I am struggling with social anxiety",
+    "entities": [
+      {
+        "start": 21,
+        "end": 35,
+        "value": "social anxiety",
+        "entity": "problem"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "problem",
+        "start": 28,
+        "end": 35,
+        "confidence_entity": 0.9995555281639099,
+        "value": "anxiety",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "I have some insomnia recently",
+    "entities": [
+      {
+        "start": 12,
+        "end": 20,
+        "value": "insomnia",
+        "entity": "problem"
+      }
+    ],
+    "predicted_entities": []
+  }
+]

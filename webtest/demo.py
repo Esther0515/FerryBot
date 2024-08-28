@@ -98,12 +98,12 @@ def login():
 @app.route("/remind_group")
 @login_required
 def remind_group():
-    return render_template("remind_group.html", mode_profile='Say whay you what to say', start_bot_text=0, mode_num=6, mode_description='group chat for remind', hint_text='This function only detects the activity of online users.', next_text='Bot helper', next_url='bot_helper')
+    return render_template("remind_group.html", mode_profile='Say what you what to say', start_bot_text=0, mode_num=6, mode_description='group chat for remind', hint_text='This function only detects the activity of online users.', next_text='Bot helper', next_url='bot_helper')
 
 @app.route("/bot_helper")
 @login_required
 def bot_helper():
-    return render_template("bot_helper.html", mode_profile='Say whay you what to say', start_bot_text=0, mode_num=6, mode_description='private chat with bot', hint_text='This page is a private interface that will log your difficulties and ask for professional help.', next_text='Group chat', next_url='remind_group')
+    return render_template("bot_helper.html", mode_profile='Say what you what to say', start_bot_text=0, mode_num=6, mode_description='private chat with bot', hint_text='This page is a private interface that will log your difficulties and ask for professional help.', next_text='Group chat', next_url='remind_group')
 
 @socketio.on('join')
 def on_join(data):
